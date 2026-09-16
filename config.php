@@ -34,4 +34,4 @@ const SESSION_NAME = 'tg_admin_session';
  * You can override with Apache `SetEnv MAPBOX_ACCESS_TOKEN "pk...."` instead of editing this file.
  */
 const MAPBOX_ACCESS_TOKEN =
-'YOUR_MAPBOX_TOKEN';
+'YOUR_ MAPBOX_TOKEN';
