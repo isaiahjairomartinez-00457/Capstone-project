@@ -75,7 +75,14 @@ $navActive = 'dashboard';
 
 $barCfg = [
     'labels' => $barLabels,
-    'datasets' => [['label' => 'Trees', 'data' => $barValues, 'backgroundColor' => '#14532d']],
+    'datasets' => [[
+        'label' => 'Trees',
+        'data' => $barValues,
+        'backgroundColor' => '#1b7a3b',
+        'hoverBackgroundColor' => '#166534',
+        'borderRadius' => 8,
+        'maxBarThickness' => 36,
+    ]],
 ];
 $pieCfg = [
     'labels' => ['Endangered', 'Critically endangered', 'Vulnerable'],
@@ -86,10 +93,13 @@ $pieCfg = [
             (int)$counts['vulnerable'],
         ],
         'backgroundColor' => ['#ea580c', '#dc2626', '#ca8a04'],
+        'borderWidth' => 0,
+        'hoverOffset' => 6,
     ]],
 ];
 $chartJson = static fn (array $cfg): string => json_encode($cfg, JSON_THROW_ON_ERROR);
 $extraScripts = '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>'
+    . '<script src="assets/js/chart_theme.js"></script>'
     . '<script>(function(){var BAR=' . $chartJson($barCfg)
     . ';var PIE=' . $chartJson($pieCfg) . ';'
     . 'function initCharts(){'
@@ -97,7 +107,7 @@ $extraScripts = '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/c
     . 'var pieEl=document.getElementById("chartPie");'
     . 'if(!barEl||!pieEl||typeof Chart==="undefined")return;'
     . 'new Chart(barEl,{type:"bar",data:BAR,options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});'
-    . 'new Chart(pieEl,{type:"pie",data:PIE,options:{responsive:true,maintainAspectRatio:false}});'
+    . 'new Chart(pieEl,{type:"pie",data:PIE,options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"bottom",labels:{usePointStyle:true,boxWidth:8,padding:14}}}}});'
     . '}'
     . 'if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initCharts);}'
     . 'else{initCharts();}'
@@ -117,6 +127,25 @@ require __DIR__ . '/includes/layout_start.php';
     <div>
         <h1>Dashboard</h1>
         <p>Overview of protected trees and field activity.</p>
+    </div>
+</div>
+
+<div class="grid-4" style="margin-bottom:18px">
+    <div class="card stat-card">
+        <div class="lbl">Total Trees</div>
+        <div class="big"><?= (int)$counts['total'] ?></div>
+    </div>
+    <div class="card stat-card">
+        <div class="lbl">Unique Species</div>
+        <div class="big"><?= (int)$speciesCount ?></div>
+    </div>
+    <div class="card stat-card">
+        <div class="lbl">Locations</div>
+        <div class="big"><?= (int)$locCount ?></div>
+    </div>
+    <div class="card stat-card critical">
+        <div class="lbl">Critical Status</div>
+        <div class="big"><?= (int)$counts['critical'] + (int)$counts['endangered'] ?></div>
     </div>
 </div>
 
