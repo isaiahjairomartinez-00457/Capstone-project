@@ -1,11 +1,11 @@
 ---
-name: flora-guard-capstone
+name: codex-capstone
 description: Maintain the Flora Guard PHP administration system when a task spans project architecture, authentication, Firebase data, shared layouts, dashboard features, or verification across multiple areas.
 metadata:
-  short-description: Flora Guard project conventions
+  short-description: Codex capstone project conventions
 ---
 
-# Flora Guard Capstone
+# Codex Capstone
 
 Use this skill for cross-cutting work in the Flora Guard web administration system. For a focused PHP implementation, also read [../php-web-development/SKILL.md](../php-web-development/SKILL.md). For dashboard, map, scan, reports, or analytics work, also read [../dashboard-map/SKILL.md](../dashboard-map/SKILL.md).
 
